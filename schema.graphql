@@ -1,0 +1,18 @@
+type Post {
+	title: String
+	ups: Int
+	downs: Int
+	url: String
+	author: String
+}
+
+type Query {
+	webhook(id: String!): String
+	webhook_signed(id: String!): String
+	topPosts(topic: String!): [Post!]!
+	latestXkcd: AWSJSON!
+}
+
+schema {
+	query: Query
+}
