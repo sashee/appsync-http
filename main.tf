@@ -187,6 +187,9 @@ EOF
 #if ($ctx.error)
 	$util.error($ctx.error.message, $ctx.error.type)
 #end
+#if ($ctx.result.statusCode < 200 || $ctx.result.statusCode >= 300)
+	$util.error($ctx.result.body, "StatusCode$ctx.result.statusCode")
+#end
 $ctx.result.body
 EOF
 }
@@ -213,6 +216,9 @@ EOF
 	response_template = <<EOF
 #if ($ctx.error)
 	$util.error($ctx.error.message, $ctx.error.type)
+#end
+#if ($ctx.result.statusCode < 200 || $ctx.result.statusCode >= 300)
+	$util.error($ctx.result.body, "StatusCode$ctx.result.statusCode")
 #end
 #set($result = [])
 #foreach($item in $util.parseJson($ctx.result.body).data.children)
